@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "mode": "SHADOW",
+  "task": {
+    "id": "TASK-001",
+    "priority": "P0",
+    "status": "BLOCKED"
+  },
+  "change": {
+    "files": 0,
+    "database": false,
+    "security": false,
+    "production": false
+  },
+  "evidence": {
+    "compile": "unknown",
+    "unit_test": "unknown",
+    "ci": "unknown"
+  },
+  "review": {
+    "status": "not_required"
+  },
+  "history": {
+    "retry_count": 0
+  }
+}

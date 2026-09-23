@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "mode": "SHADOW",
+  "hard_policy": {
+    "precedence": "ALWAYS_OVERRIDES_JEV",
+    "rules": [
+      { "when": "evidence.compile == 'fail'", "forbid": "DONE" },
+      { "when": "evidence.unit_test == 'fail'", "forbid": "DONE" },
+      { "when": "evidence.ci == 'fail'", "forbid": "MERGE" },
+      { "when": "change.database == true", "require": "REVIEW" },
+      { "when": "change.security == true", "require": "DEEP_REVIEW" },
+      { "when": "change.production == true", "require": "HUMAN_CONFIRMATION" }
+    ]
+  },
+  "routers": {
+    "task_router": {
+      "enabled": true,
+      "allowed_outputs": ["PROCEED", "SPLIT", "BLOCK", "REVIEW"],
+      "effect": "LOG_ONLY"
+    },
+    "review_router": {
+      "enabled": true,
+      "allowed_outputs": ["NO_REVIEW", "NORMAL_REVIEW", "DEEP_REVIEW", "MULTI_REVIEW"],
+      "effect": "LOG_ONLY"
+    }
+  },
+  "disabled": ["MODEL_ROUTER", "SKILL_ROUTER", "COMPLETION_GATE", "AUTONOMOUS_LOOP"],
+  "decision_log": {
+    "path": ".harness/decision.log",
+    "format": "JSONL",
+    "required_fields": [
+      "task",
+      "point",
+      "decision",
+      "confidence",
+      "actual_action",
+      "result",
+      "timestamp"
+    ]
+  }
+}
